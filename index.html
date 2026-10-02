@@ -3,61 +3,95 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f766e" />
+  <meta name="theme-color" content="#1677f2" />
   <title>AZC Vandaag</title>
+  
   <style>
     :root{
-      --bg:#f6f7f5;--card:#fff;--text:#17211f;--muted:#6b7471;--line:#e3e7e4;
-      --brand:#0f766e;--brand-soft:#e6f4f1;--accent:#f2b84b;--danger:#b94a48;
-      --shadow:0 8px 28px rgba(24,38,34,.08);--radius:20px;
+      --bg:#f6f9fc;
+      --card:#ffffff;
+      --text:#0f1f3a;
+      --muted:#667085;
+      --line:#e8edf4;
+      --brand:#1677f2;
+      --brand-dark:#0f62d8;
+      --brand-soft:#eaf3ff;
+      --shadow:0 10px 30px rgba(16,36,66,.08);
+      --radius:20px;
+
+      --purple:#7257e8;
+      --purple-soft:#eee9ff;
+      --orange:#ff7a1a;
+      --orange-soft:#fff0e3;
+      --pink:#e95c74;
+      --pink-soft:#ffe9ee;
+      --green:#25a968;
+      --green-soft:#e7f7ef;
+      --teal:#16a6a1;
+      --teal-soft:#e4f8f6;
+      --yellow:#f4b11a;
+      --yellow-soft:#fff4d7;
+      --slate:#5d6878;
+      --slate-soft:#eef1f5;
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
     button,select{font:inherit}
     button{cursor:pointer}
-    .app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:94px}
-    header{position:sticky;top:0;z-index:20;background:rgba(246,247,245,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(227,231,228,.8)}
-    .header-inner{padding:16px 18px 12px}
+    .app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:94px;background:linear-gradient(180deg,#fff 0,#f8fbff 180px,#f6f9fc 420px)}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .header-inner{padding:14px 18px 12px}
     .brand-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:42px;height:42px;border-radius:14px;background:var(--brand);display:grid;place-items:center;color:white;font-size:21px;box-shadow:var(--shadow)}
-    h1{font-size:22px;margin:0;line-height:1.1}
+    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#e8f3ff,#fff);display:grid;place-items:center;color:var(--brand);font-size:22px;font-weight:900;box-shadow:0 5px 18px rgba(22,119,242,.14);border:1px solid #d9e9ff}
+    h1{font-size:22px;margin:0;line-height:1.1;color:#0b1730}
     .tagline{color:var(--muted);font-size:13px;margin-top:3px}
-    .lang{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 10px;color:var(--text);max-width:125px}
-    .notice{margin:14px 18px 0;padding:13px 14px;background:#fff7e6;border:1px solid #f2d59d;border-radius:16px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+    .lang{border:1px solid #dfe7f1;background:white;border-radius:13px;padding:9px 10px;color:var(--text);max-width:130px;box-shadow:0 2px 8px rgba(16,36,66,.03)}
+    .notice{margin:14px 18px 0;padding:13px 14px;background:var(--yellow-soft);border:1px solid #f6dda1;border-radius:16px;font-size:14px;display:flex;gap:10px;align-items:flex-start;color:#533f08}
     .notice.hidden{display:none}
     main{padding:18px}
     .screen{display:none}.screen.active{display:block}
-    .hero{background:linear-gradient(135deg,#0f766e,#155e75);color:white;border-radius:26px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
-    .hero .eyebrow{font-size:13px;opacity:.8;margin-bottom:8px}.hero h2{font-size:30px;margin:0 0 6px}.hero p{margin:0;opacity:.9}
+    .hero{background:linear-gradient(135deg,#eff7ff,#dcecff);color:var(--text);border:1px solid #d9e9ff;border-radius:26px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-90px;background:rgba(22,119,242,.11)}
+    .hero .eyebrow{font-size:13px;color:#4d6b91;margin-bottom:8px;font-weight:700;position:relative;z-index:1}
+    .hero h2{font-size:30px;margin:0 0 6px;color:#0b1730;position:relative;z-index:1}
+    .hero p{margin:0;color:#4f6178;position:relative;z-index:1}
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:22px 2px 10px}
-    .section-head h2,.section-head h3{margin:0}.section-head h2{font-size:23px}.section-head h3{font-size:17px}.section-head span{color:var(--muted);font-size:13px}
+    .section-head h2,.section-head h3{margin:0;color:#0b1730}.section-head h2{font-size:23px}.section-head h3{font-size:17px}.section-head span{color:var(--muted);font-size:13px}
     .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
-    .chip{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:9px 13px;color:var(--text)}
-    .chip.active{background:var(--brand);border-color:var(--brand);color:white}
+    .chip{white-space:nowrap;border:1px solid #e2e8f0;background:white;border-radius:999px;padding:9px 13px;color:#334155;font-weight:700;box-shadow:0 2px 6px rgba(16,36,66,.025)}
+    .chip.active{background:var(--brand);border-color:var(--brand);color:white;box-shadow:0 6px 16px rgba(22,119,242,.18)}
     .list{display:grid;gap:11px}
-    .event{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:52px 1fr;gap:13px;box-shadow:0 3px 16px rgba(24,38,34,.035)}
-    .time{font-weight:800;color:var(--brand);font-size:14px;padding-top:3px;text-align:center}.time small{display:block;color:var(--muted);font-weight:600;font-size:11px;margin-top:3px}
+    .event{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:58px 1fr;gap:13px;box-shadow:0 5px 18px rgba(16,36,66,.045)}
+    .time{font-weight:850;color:var(--brand);font-size:14px;padding-top:3px;text-align:center}.time small{display:block;color:var(--muted);font-weight:650;font-size:11px;margin-top:3px}
     .event-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .event h3{font-size:17px;margin:0 0 5px}.meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:7px 11px}
-    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:800;margin-top:9px}
-    .badge.required{background:#fff0ef;color:var(--danger)}
+    .event h3{font-size:17px;margin:0 0 5px;color:#0b1730}.meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:7px 11px}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:850;margin-top:9px}
+    .event[data-cat="language"] .badge{background:var(--purple-soft);color:var(--purple)}
+    .event[data-cat="sport"] .badge{background:var(--orange-soft);color:var(--orange)}
+    .event[data-cat="meet"] .badge{background:var(--pink-soft);color:var(--pink)}
+    .event[data-cat="children"] .badge{background:var(--green-soft);color:var(--green)}
+    .event[data-cat="practical"] .badge{background:var(--yellow-soft);color:#a87300}
+    .event[data-cat="required"] .badge{background:#eef4ff;color:var(--brand)}
+    .event[data-cat="creative"] .badge{background:var(--teal-soft);color:var(--teal)}
     .event-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
-    .btn{border:0;border-radius:11px;padding:9px 11px;font-weight:750;background:var(--brand);color:white}.btn.secondary{background:#eef1ef;color:var(--text)}
-    .star{border:0;background:transparent;font-size:22px;line-height:1;padding:2px;color:#aeb5b2}.star.saved{color:var(--accent)}
-    .day-block{margin-bottom:21px}.day-label{font-size:14px;font-weight:850;margin:0 0 9px;color:#43504c;text-transform:capitalize}
-    .empty{padding:28px 18px;background:white;border:1px dashed #cdd5d1;border-radius:18px;text-align:center;color:var(--muted)}
+    .btn{border:0;border-radius:12px;padding:10px 12px;font-weight:800;background:var(--brand);color:white;box-shadow:0 6px 16px rgba(22,119,242,.18)}
+    .btn:hover{background:var(--brand-dark)}
+    .btn.secondary{background:#eef3f8;color:var(--text);box-shadow:none}
+    .star{border:0;background:transparent;font-size:23px;line-height:1;padding:2px;color:#b8c2cf}.star.saved{color:var(--brand)}
+    .day-block{margin-bottom:21px}.day-label{font-size:14px;font-weight:850;margin:0 0 9px;color:#35435a;text-transform:capitalize}
+    .empty{padding:28px 18px;background:white;border:1px dashed #cdd7e5;border-radius:18px;text-align:center;color:var(--muted)}
     .categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
     .category-card{border:1px solid var(--line);background:white;border-radius:18px;padding:16px;text-align:left}.category-card strong{display:block;font-size:16px;margin:7px 0 4px}.category-card span{color:var(--muted);font-size:13px}
     .category-card.active{outline:2px solid var(--brand);background:var(--brand-soft)}
-    .calendar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.calendar-head h2{margin:0;font-size:22px}.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:white}
-    .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dow{text-align:center;color:var(--muted);font-size:11px;font-weight:800;padding:5px 0}.day{min-height:65px;border:1px solid var(--line);border-radius:13px;background:white;padding:7px 5px;position:relative}.day.muted{opacity:.35}.day.today{outline:2px solid var(--brand)}.day.selected{background:var(--brand-soft)}.day-num{font-size:12px;font-weight:800}.dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:7px}.dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
-    .info-card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:11px}.info-card h3{margin:0 0 7px}.info-card p{color:var(--muted);margin:0;line-height:1.55;font-size:14px}
-    .demo-note{background:#edf2ff;border-color:#cad6fa}.demo-note p{color:#48506a}
-    nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.calendar-head h2{margin:0;font-size:22px;color:#0b1730}.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:white;color:#334155;box-shadow:0 3px 10px rgba(16,36,66,.04)}
+    .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dow{text-align:center;color:var(--muted);font-size:11px;font-weight:800;padding:5px 0}.day{min-height:65px;border:1px solid var(--line);border-radius:13px;background:white;padding:7px 5px;position:relative;color:#24344d}.day.muted{opacity:.35}.day.today{outline:2px solid var(--brand)}.day.selected{background:var(--brand-soft);border-color:#cfe3ff}.day-num{font-size:12px;font-weight:850}.dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:7px}.dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+    .info-card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:11px;box-shadow:0 4px 15px rgba(16,36,66,.035)}.info-card h3{margin:0 0 7px;color:#0b1730}.info-card p{color:var(--muted);margin:0;line-height:1.55;font-size:14px}
+    .demo-note{background:#eef5ff;border-color:#d5e6ff}.demo-note p{color:#4d6485}
+    nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.98);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));box-shadow:0 -8px 24px rgba(16,36,66,.04)}
     .nav-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-    .nav-btn{border:0;background:transparent;color:#707a76;border-radius:12px;padding:6px 2px;font-size:10px;font-weight:750}.nav-btn .ico{display:block;font-size:20px;margin-bottom:2px}.nav-btn.active{color:var(--brand);background:var(--brand-soft)}
-    .rtl{direction:rtl}.rtl .event{grid-template-columns:1fr 52px}.rtl .time{grid-column:2}.rtl .event-body{grid-column:1;grid-row:1}.rtl .event-top,.rtl .section-head,.rtl .brand-row,.rtl .calendar-head{direction:rtl}
+    .nav-btn{border:0;background:transparent;color:#728096;border-radius:12px;padding:6px 2px;font-size:10px;font-weight:750}.nav-btn .ico{display:block;font-size:20px;margin-bottom:2px}.nav-btn.active{color:var(--brand);background:#edf5ff}
+    .rtl{direction:rtl}.rtl .event{grid-template-columns:1fr 58px}.rtl .time{grid-column:2}.rtl .event-body{grid-column:1;grid-row:1}.rtl .event-top,.rtl .section-head,.rtl .brand-row,.rtl .calendar-head{direction:rtl}
     @media(min-width:640px){main{padding:24px}.header-inner{padding:18px 24px 14px}.notice{margin-left:24px;margin-right:24px}.hero{padding:28px}.categories{grid-template-columns:repeat(3,minmax(0,1fr))}.event{padding:16px}}
   </style>
 </head>
@@ -67,7 +101,7 @@
     <div class="header-inner">
       <div class="brand-row">
         <div class="brand">
-          <div class="logo">◎</div>
+          <div class="logo">●</div>
           <div><h1 id="appName">AZC Vandaag</h1><div class="tagline" id="tagline">Alles wat er te doen is, op één plek</div></div>
         </div>
         <select class="lang" id="language" aria-label="Taal kiezen">
@@ -175,7 +209,7 @@ function filterEvents(events){return state.filter==='all'?events:events.filter(e
 
 function eventCard(ev){
   const saved=state.saved.includes(eventKey(ev)); const isReq=ev.required||ev.cat==='required';
-  return `<article class="event"><div class="time">${ev.start}<small>${ev.end}</small></div><div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span><span>🕒 ${ev.start}–${ev.end}</span></div></div><button class="star ${saved?'saved':''}" data-save="${eventKey(ev)}" aria-label="${saved?t().saved:t().save}">${saved?'★':'☆'}</button></div><div class="badge ${isReq?'required':''}">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}${isReq?' · '+t().required:''}</div><div class="meta" style="margin-top:9px">${ev.desc[state.lang]||ev.desc.nl}</div><div class="event-actions"><button class="btn" data-ics="${eventKey(ev)}">＋ ${t().addCalendar}</button></div></div></article>`
+  return `<article class="event" data-cat="${ev.cat}"><div class="time">${ev.start}<small>${ev.end}</small></div><div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span><span>🕒 ${ev.start}–${ev.end}</span></div></div><button class="star ${saved?'saved':''}" data-save="${eventKey(ev)}" aria-label="${saved?t().saved:t().save}">${saved?'★':'☆'}</button></div><div class="badge ${isReq?'required':''}">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}${isReq?' · '+t().required:''}</div><div class="meta" style="margin-top:9px">${ev.desc[state.lang]||ev.desc.nl}</div><div class="event-actions"><button class="btn" data-ics="${eventKey(ev)}">＋ ${t().addCalendar}</button></div></div></article>`
 }
 function categoriesHtml(){const cats=['all','language','sport','meet','practical','required','children'];return cats.map(c=>`<button class="chip ${state.filter===c?'active':''}" data-filter="${c}">${catIcons[c]} ${c==='all'?t().all:categoryName(c)}</button>`).join('')}
 function bindCards(events){
