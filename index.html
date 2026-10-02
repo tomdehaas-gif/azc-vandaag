@@ -8,72 +8,75 @@
   
   <style>
     :root{
-      --bg:#f6f9fc;
+      --bg:#f1f0ea;
       --card:#ffffff;
-      --text:#0f1f3a;
-      --muted:#667085;
-      --line:#e8edf4;
-      --brand:#1677f2;
-      --brand-dark:#0f62d8;
-      --brand-soft:#eaf3ff;
-      --shadow:0 10px 30px rgba(16,36,66,.08);
+      --text:#18333a;
+      --muted:#66716f;
+      --line:#d9ded8;
+      --brand:#2f6165;
+      --brand-dark:#234c4f;
+      --brand-soft:#e8efee;
+      --shadow:0 8px 22px rgba(24,51,58,.06);
       --radius:20px;
 
-      --purple:#7257e8;
-      --purple-soft:#eee9ff;
-      --orange:#ff7a1a;
-      --orange-soft:#fff0e3;
-      --pink:#e95c74;
-      --pink-soft:#ffe9ee;
-      --green:#25a968;
-      --green-soft:#e7f7ef;
-      --teal:#16a6a1;
-      --teal-soft:#e4f8f6;
-      --yellow:#f4b11a;
-      --yellow-soft:#fff4d7;
+      --purple:#6f63bf;
+      --purple-soft:#ece9fb;
+      --orange:#b97327;
+      --orange-soft:#f6eadb;
+      --pink:#b65d72;
+      --pink-soft:#f8e7eb;
+      --green:#2c8e63;
+      --green-soft:#e5f3ea;
+      --teal:#2f6165;
+      --teal-soft:#e8efee;
+      --yellow:#b8923c;
+      --yellow-soft:#f5edd9;
       --slate:#5d6878;
-      --slate-soft:#eef1f5;
+      --slate-soft:#eef1f0;
+      --gold:#c5a353;
+      --gold-soft:#f5edd9;
+      --sand:#f6f4ed;
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
     button,select{font:inherit}
     button{cursor:pointer}
-    .app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:94px;background:linear-gradient(180deg,#fff 0,#f8fbff 180px,#f6f9fc 420px)}
-    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-    .header-inner{padding:14px 18px 12px}
+    .app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:94px;background:linear-gradient(180deg,#f6f4ed 0,#f2f1eb 220px,#eeede6 460px)}
+    header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#2f6165,#284e52);backdrop-filter:blur(14px);border-bottom:3px solid var(--gold)}
+    .header-inner{padding:14px 18px 12px;position:relative}.header-inner:before{content:"Locatieoverzicht";display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#d8e4df;margin-bottom:8px;font-weight:700}
     .brand-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#e8f3ff,#fff);display:grid;place-items:center;color:var(--brand);font-size:22px;font-weight:900;box-shadow:0 5px 18px rgba(22,119,242,.14);border:1px solid #d9e9ff}
-    h1{font-size:22px;margin:0;line-height:1.1;color:#0b1730}
-    .tagline{color:var(--muted);font-size:13px;margin-top:3px}
-    .lang{border:1px solid #dfe7f1;background:white;border-radius:13px;padding:9px 10px;color:var(--text);max-width:130px;box-shadow:0 2px 8px rgba(16,36,66,.03)}
+    .logo{width:44px;height:44px;border-radius:6px;background:linear-gradient(145deg,#3b7378,#2c585c);display:grid;place-items:center;color:#f4d17a;font-size:18px;font-weight:900;box-shadow:0 5px 18px rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.12)}
+    h1{font-size:22px;margin:0;line-height:1.1;color:#ffffff}
+    .tagline{color:#dce7e1;font-size:13px;margin-top:3px}
+    .lang{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);border-radius:13px;padding:9px 10px;color:#ffffff;max-width:145px;box-shadow:none}
     .notice{margin:14px 18px 0;padding:13px 14px;background:var(--yellow-soft);border:1px solid #f6dda1;border-radius:16px;font-size:14px;display:flex;gap:10px;align-items:flex-start;color:#533f08}
     .notice.hidden{display:none}
     main{padding:18px}
     .screen{display:none}.screen.active{display:block}
-    .hero{background:linear-gradient(135deg,#eff7ff,#dcecff);color:var(--text);border:1px solid #d9e9ff;border-radius:26px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px;position:relative;overflow:hidden}
-    .hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-90px;background:rgba(22,119,242,.11)}
-    .hero .eyebrow{font-size:13px;color:#4d6b91;margin-bottom:8px;font-weight:700;position:relative;z-index:1}
-    .hero h2{font-size:30px;margin:0 0 6px;color:#0b1730;position:relative;z-index:1}
-    .hero p{margin:0;color:#4f6178;position:relative;z-index:1}
+    .hero{background:linear-gradient(135deg,#365f63,#2a4d50);color:#fff;border:1px solid #456d70;border-radius:22px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-90px;top:-110px;background:rgba(255,255,255,.06)}.hero:before{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--gold),transparent 60%)}
+    .hero .eyebrow{font-size:12px;color:#d9e4de;margin-bottom:8px;font-weight:700;position:relative;z-index:1;letter-spacing:.08em;text-transform:uppercase}
+    .hero h2{font-size:29px;margin:0 0 6px;color:#ffffff;position:relative;z-index:1}
+    .hero p{margin:0;color:#dce7e1;position:relative;z-index:1;max-width:34ch}
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:22px 2px 10px}
-    .section-head h2,.section-head h3{margin:0;color:#0b1730}.section-head h2{font-size:23px}.section-head h3{font-size:17px}.section-head span{color:var(--muted);font-size:13px}
+    .section-head h2,.section-head h3{margin:0;color:#21464a}.section-head h2{font-size:23px}.section-head h3{font-size:17px}.section-head span{color:#84724a;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
     .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
     .chip{white-space:nowrap;border:1px solid #e2e8f0;background:white;border-radius:999px;padding:9px 13px;color:#334155;font-weight:700;box-shadow:0 2px 6px rgba(16,36,66,.025)}
-    .chip.active{background:var(--brand);border-color:var(--brand);color:white;box-shadow:0 6px 16px rgba(22,119,242,.18)}
+    .chip.active{background:var(--brand);border-color:var(--brand);color:white;box-shadow:inset 0 -3px 0 var(--gold)}
     .list{display:grid;gap:11px}
-    .event{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:14px;align-items:start;box-shadow:0 8px 24px rgba(16,36,66,.06)}
+    .event{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:100px minmax(0,1fr);gap:14px;align-items:start;box-shadow:0 3px 8px rgba(24,51,58,.03)}
     .event-side{display:flex;flex-direction:column;gap:8px;align-items:stretch}
-    .time-badge{font-weight:850;color:var(--brand);font-size:13px;text-align:center;line-height:1.15;overflow-wrap:anywhere;word-break:break-word;background:var(--brand-soft);border:1px solid #d7e6ff;border-radius:14px;padding:8px 6px}
-    .time-badge small{display:block;color:var(--muted);font-weight:700;font-size:11px;margin-top:4px}
-    .thumb{width:100px;height:100px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#eef3f8;box-shadow:0 4px 12px rgba(16,36,66,.05)}
+    .time-badge{font-weight:850;color:#fff;font-size:13px;text-align:center;line-height:1.15;overflow-wrap:anywhere;word-break:break-word;background:var(--brand);border:1px solid #3a6b6e;border-radius:10px;padding:8px 6px}
+    .time-badge small{display:block;color:#dce7e1;font-weight:700;font-size:11px;margin-top:4px}
+    .thumb{width:100px;height:100px;border-radius:12px;overflow:hidden;border:1px solid #d3dad4;background:#eef1ec;box-shadow:none}
     .thumb img{width:100%;height:100%;object-fit:cover;display:block}
     .event-body{min-width:0}
     .event-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.event-top > div{min-width:0}
-    .event h3{font-size:18px;margin:0 0 6px;color:#0b1730;line-height:1.2}
+    .event h3{font-size:18px;margin:0 0 6px;color:#21464a;line-height:1.2}
     .meta{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
     .meta span{display:flex;align-items:flex-start;gap:6px}
-    .badge{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:850;margin-top:10px}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:850;margin-top:10px;border:1px solid #d8e3de}
     .event[data-cat="language"] .badge{background:var(--purple-soft);color:var(--purple)}
     .event[data-cat="sport"] .badge{background:var(--orange-soft);color:var(--orange)}
     .event[data-cat="meet"] .badge{background:var(--pink-soft);color:var(--pink)}
@@ -83,13 +86,13 @@
     .event[data-cat="creative"] .badge{background:var(--teal-soft);color:var(--teal)}
     .event-actions{display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap}
     .status-note{margin-top:10px}
-    .text-link{border:0;background:transparent;padding:0;color:var(--brand);font-weight:800;font-size:13px;text-decoration:none;cursor:pointer}
+    .text-link{border:0;background:transparent;padding:0;color:#7b6130;font-weight:800;font-size:13px;text-decoration:none;cursor:pointer}
     .text-link:hover{text-decoration:underline}
     .desc-wrap{margin-top:10px}
     .desc-text{font-size:13px;color:var(--muted);line-height:1.48;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
     .desc-wrap.expanded .desc-text{-webkit-line-clamp:unset;display:block;overflow:visible}
     .read-more{margin-top:6px}
-    .star{border:0;background:#f4f7fb;border-radius:12px;min-width:38px;height:38px;font-size:22px;line-height:1;padding:0;color:#b8c2cf;display:grid;place-items:center;box-shadow:inset 0 0 0 1px #e6ecf3}.star.saved{color:var(--brand);background:#eaf3ff;box-shadow:inset 0 0 0 1px #cfe3ff}
+    .star{border:0;background:#f4f5f1;border-radius:10px;min-width:38px;height:38px;font-size:22px;line-height:1;padding:0;color:#b8c2cf;display:grid;place-items:center;box-shadow:inset 0 0 0 1px #e2e6df}.star.saved{color:var(--brand);background:#e8efee;box-shadow:inset 0 0 0 1px #d1dddb}
     .day-block{margin-bottom:21px}.day-label{font-size:14px;font-weight:850;margin:0 0 9px;color:#35435a;text-transform:capitalize}
     .empty{padding:28px 18px;background:white;border:1px dashed #cdd7e5;border-radius:18px;text-align:center;color:var(--muted)}
     .categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
@@ -103,9 +106,9 @@
     .ongoing-card .time-badge{color:var(--teal);background:var(--teal-soft);border-color:#cbeeea;font-size:12px}
     .source-note{font-size:12px;color:var(--muted);margin-top:8px}
     .status-note{font-size:12px;font-weight:750;color:#9a6700;background:var(--yellow-soft);border-radius:10px;padding:8px 10px;margin-top:10px}
-    nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.98);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));box-shadow:0 -8px 24px rgba(16,36,66,.04)}
+    nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(250,250,247,.98);backdrop-filter:blur(12px);border-top:2px solid var(--gold);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));box-shadow:0 -4px 14px rgba(24,51,58,.04)}
     .nav-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-    .nav-btn{border:0;background:transparent;color:#728096;border-radius:12px;padding:6px 2px;font-size:10px;font-weight:750}.nav-btn .ico{display:block;font-size:20px;margin-bottom:2px}.nav-btn.active{color:var(--brand);background:#edf5ff}
+    .nav-btn{border:0;background:transparent;color:#6f7978;border-radius:12px;padding:6px 2px;font-size:10px;font-weight:750}.nav-btn .ico{display:block;font-size:20px;margin-bottom:2px}.nav-btn.active{color:var(--brand);background:#ecefe9;box-shadow:inset 0 3px 0 var(--gold)}
     .rtl{direction:rtl}.rtl .event{grid-template-columns:minmax(0,1fr) 100px}.rtl .event-side{grid-column:2}.rtl .event-body{grid-column:1;grid-row:1}.rtl .event-top,.rtl .section-head,.rtl .brand-row,.rtl .calendar-head{direction:rtl}
     @media(min-width:640px){main{padding:24px}.header-inner{padding:18px 24px 14px}.notice{margin-left:24px;margin-right:24px}.hero{padding:28px}.categories{grid-template-columns:repeat(3,minmax(0,1fr))}.event{padding:16px;grid-template-columns:116px minmax(0,1fr)}.thumb{width:116px;height:116px}.time-badge{font-size:14px}}
   </style>
@@ -116,7 +119,7 @@
     <div class="header-inner">
       <div class="brand-row">
         <div class="brand">
-          <div class="logo">●</div>
+          <div class="logo">AZC</div>
           <div><h1 id="appName">AZC Vandaag</h1><div class="tagline" id="tagline">Alles wat er te doen is, op één plek</div></div>
         </div>
         <select class="lang" id="language" aria-label="Taal kiezen">
@@ -184,7 +187,7 @@
 <script>
 const translations = {
   nl:{
-    tagline:'Alles wat er te doen is, op één plek',
+    tagline:'Activiteiten en praktische info op locatie',
     todayEyebrow:'Vandaag op de locatie',todayTitle:'Wat ga jij doen?',todaySub:'Actuele activiteiten, openingstijden en handige mogelijkheden.',todayHeading:'Vandaag',weekHeading:'Deze week',
     savedHeading:'Mijn activiteiten',savedSub:'Bewaard op deze telefoon',infoHeading:'Informatie',
     demoTitle:'Geïnventariseerd op 2 oktober 2026',demoText:'Deze versie is gevuld met informatie van de flyers en mededelingenborden op de locatie. Tijden en aanbod kunnen wijzigen, dus controleer bij twijfel de actuele informatie op locatie.',
@@ -199,7 +202,7 @@ const translations = {
     categories:{language:'Taal',sport:'Sport',meet:'Ontmoeten',practical:'Praktisch',required:'Verplicht',children:'Kinderen',creative:'Creatief',health:'Zorg',learning:'Leren'}
   },
   en:{
-    tagline:'Everything happening, in one place',
+    tagline:'Activities and practical information on site',
     todayEyebrow:'Today at the centre',todayTitle:'What will you do?',todaySub:'Current activities, opening hours and useful options.',todayHeading:'Today',weekHeading:'This week',
     savedHeading:'My activities',savedSub:'Saved on this phone',infoHeading:'Information',
     demoTitle:'Collected on 2 October 2026',demoText:'This version is based on flyers and noticeboards at the location. Times and activities can change, so check the current information at the centre if in doubt.',
@@ -214,7 +217,7 @@ const translations = {
     categories:{language:'Language',sport:'Sport',meet:'Meet',practical:'Practical',required:'Required',children:'Children',creative:'Creative',health:'Health',learning:'Learning'}
   },
   ar:{
-    tagline:'كل ما يحدث في مكان واحد',
+    tagline:'الأنشطة والمعلومات العملية في الموقع',
     todayEyebrow:'اليوم في الموقع',todayTitle:'ماذا ستفعل اليوم؟',todaySub:'الأنشطة الحالية وأوقات العمل والخيارات المفيدة.',todayHeading:'اليوم',weekHeading:'هذا الأسبوع',
     savedHeading:'أنشطتي',savedSub:'محفوظة على هذا الهاتف',infoHeading:'معلومات',
     demoTitle:'تم جمع المعلومات في 2 أكتوبر 2026',demoText:'تعتمد هذه النسخة على المنشورات ولوحات الإعلانات في الموقع. قد تتغير الأوقات والأنشطة، لذا تحقق من المعلومات الحالية في الموقع عند الشك.',
@@ -229,7 +232,7 @@ const translations = {
     categories:{language:'اللغة',sport:'الرياضة',meet:'لقاء',practical:'عملي',required:'إلزامي',children:'الأطفال',creative:'إبداعي',health:'الصحة',learning:'التعلم'}
   },
   fa:{
-    tagline:'همه برنامه‌ها در یک جا',
+    tagline:'فعالیت‌ها و اطلاعات کاربردی در محل',
     todayEyebrow:'امروز در مرکز',todayTitle:'امروز چه کار می‌کنید؟',todaySub:'فعالیت‌های جاری، ساعات باز بودن و گزینه‌های مفید.',todayHeading:'امروز',weekHeading:'این هفته',
     savedHeading:'فعالیت‌های من',savedSub:'ذخیره‌شده روی این تلفن',infoHeading:'اطلاعات',
     demoTitle:'اطلاعات جمع‌آوری‌شده در ۲ اکتبر ۲۰۲۶',demoText:'این نسخه بر اساس پوسترها و تابلوهای اعلانات محل ساخته شده است. زمان‌ها و برنامه‌ها ممکن است تغییر کنند، پس در صورت تردید اطلاعات فعلی محل را بررسی کنید.',
