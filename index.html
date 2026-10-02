@@ -81,11 +81,14 @@
     .event[data-cat="practical"] .badge{background:var(--yellow-soft);color:#a87300}
     .event[data-cat="required"] .badge{background:#eef4ff;color:var(--brand)}
     .event[data-cat="creative"] .badge{background:var(--teal-soft);color:var(--teal)}
-    .event-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+    .event-actions{display:flex;align-items:center;gap:16px;margin-top:12px;flex-wrap:wrap}
     .status-note{margin-top:10px}
-    .btn{border:0;border-radius:12px;padding:10px 12px;font-weight:800;background:var(--brand);color:white;box-shadow:0 6px 16px rgba(22,119,242,.18)}
-    .btn:hover{background:var(--brand-dark)}
-    .btn.secondary{background:#eef3f8;color:var(--text);box-shadow:none}
+    .text-link{border:0;background:transparent;padding:0;color:var(--brand);font-weight:800;font-size:13px;text-decoration:none;cursor:pointer}
+    .text-link:hover{text-decoration:underline}
+    .desc-wrap{margin-top:10px}
+    .desc-text{font-size:13px;color:var(--muted);line-height:1.48;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+    .desc-wrap.expanded .desc-text{-webkit-line-clamp:unset;display:block;overflow:visible}
+    .read-more{margin-top:6px}
     .star{border:0;background:#f4f7fb;border-radius:12px;min-width:38px;height:38px;font-size:22px;line-height:1;padding:0;color:#b8c2cf;display:grid;place-items:center;box-shadow:inset 0 0 0 1px #e6ecf3}.star.saved{color:var(--brand);background:#eaf3ff;box-shadow:inset 0 0 0 1px #cfe3ff}
     .day-block{margin-bottom:21px}.day-label{font-size:14px;font-weight:850;margin:0 0 9px;color:#35435a;text-transform:capitalize}
     .empty{padding:28px 18px;background:white;border:1px dashed #cdd7e5;border-radius:18px;text-align:center;color:var(--muted)}
@@ -191,7 +194,7 @@ const translations = {
     calendarTitle:'📅 Toevoegen aan agenda',calendarText:'Bij activiteiten met een vast moment kun je een kalenderbestand openen. Hiervoor heb je geen account in deze app nodig.',
     privacyTitle:'🔒 Privacy',privacyText:'Deze app vraagt geen naam, e-mailadres, V-nummer of andere persoonsgegevens. Favorieten en taalkeuze blijven alleen op deze telefoon staan.',
     ongoingHeading:'Doorlopend aanbod',ongoingSub:'Geen vaste datum of tijd',weekOngoingSub:'Ook zonder vaste datum',
-    all:'Alles',addCalendar:'In agenda',save:'Bewaren',saved:'Bewaard',required:'Verplicht',noActivities:'Geen activiteiten gevonden.',activities:'Activiteiten',ongoing:'Doorlopend',moreInfo:'Meer informatie',
+    all:'Alles',addCalendar:'In agenda',save:'Bewaren',saved:'Bewaard',required:'Verplicht',noActivities:'Geen activiteiten gevonden.',activities:'Activiteiten',ongoing:'Doorlopend',moreInfo:'Meer informatie',readMore:'Lees meer',readLess:'Minder',
     nav:{today:'Vandaag',week:'Week',month:'Maand',saved:'Mijn agenda',info:'Info'},
     categories:{language:'Taal',sport:'Sport',meet:'Ontmoeten',practical:'Praktisch',required:'Verplicht',children:'Kinderen',creative:'Creatief',health:'Zorg',learning:'Leren'}
   },
@@ -206,7 +209,7 @@ const translations = {
     calendarTitle:'📅 Add to calendar',calendarText:'Activities with a fixed time can be opened as a calendar item. You do not need an account in this app.',
     privacyTitle:'🔒 Privacy',privacyText:'This app does not ask for your name, email address, V-number or other personal details. Favourites and language choice stay on this phone.',
     ongoingHeading:'Ongoing options',ongoingSub:'No fixed date or time',weekOngoingSub:'Also available without a fixed date',
-    all:'All',addCalendar:'Add to calendar',save:'Save',saved:'Saved',required:'Required',noActivities:'No activities found.',activities:'Activities',ongoing:'Ongoing',moreInfo:'More information',
+    all:'All',addCalendar:'Add to calendar',save:'Save',saved:'Saved',required:'Required',noActivities:'No activities found.',activities:'Activities',ongoing:'Ongoing',moreInfo:'More information',readMore:'Read more',readLess:'Show less',
     nav:{today:'Today',week:'Week',month:'Month',saved:'My calendar',info:'Info'},
     categories:{language:'Language',sport:'Sport',meet:'Meet',practical:'Practical',required:'Required',children:'Children',creative:'Creative',health:'Health',learning:'Learning'}
   },
@@ -221,7 +224,7 @@ const translations = {
     calendarTitle:'📅 أضف إلى التقويم',calendarText:'يمكن إضافة الأنشطة ذات الوقت المحدد إلى تقويم هاتفك. لا تحتاج إلى حساب في هذا التطبيق.',
     privacyTitle:'🔒 الخصوصية',privacyText:'لا يطلب هذا التطبيق اسمك أو بريدك الإلكتروني أو رقم V أو بيانات شخصية أخرى. تبقى المفضلة واللغة على هذا الهاتف.',
     ongoingHeading:'خيارات مستمرة',ongoingSub:'بدون تاريخ أو وقت ثابت',weekOngoingSub:'متاحة أيضاً بدون موعد ثابت',
-    all:'الكل',addCalendar:'أضف للتقويم',save:'حفظ',saved:'محفوظ',required:'إلزامي',noActivities:'لا توجد أنشطة.',activities:'الأنشطة',ongoing:'مستمر',moreInfo:'معلومات أكثر',
+    all:'الكل',addCalendar:'أضف للتقويم',save:'حفظ',saved:'محفوظ',required:'إلزامي',noActivities:'لا توجد أنشطة.',activities:'الأنشطة',ongoing:'مستمر',moreInfo:'معلومات أكثر',readMore:'اقرأ المزيد',readLess:'عرض أقل',
     nav:{today:'اليوم',week:'الأسبوع',month:'الشهر',saved:'تقويمي',info:'معلومات'},
     categories:{language:'اللغة',sport:'الرياضة',meet:'لقاء',practical:'عملي',required:'إلزامي',children:'الأطفال',creative:'إبداعي',health:'الصحة',learning:'التعلم'}
   },
@@ -236,7 +239,7 @@ const translations = {
     calendarTitle:'📅 افزودن به تقویم',calendarText:'فعالیت‌هایی که زمان مشخص دارند را می‌توانید به تقویم تلفن اضافه کنید. نیازی به حساب کاربری در این برنامه نیست.',
     privacyTitle:'🔒 حریم خصوصی',privacyText:'این برنامه نام، ایمیل، شماره V یا اطلاعات شخصی دیگری نمی‌خواهد. علاقه‌مندی‌ها و زبان فقط روی همین تلفن می‌ماند.',
     ongoingHeading:'گزینه‌های همیشگی',ongoingSub:'بدون تاریخ یا زمان ثابت',weekOngoingSub:'بدون زمان ثابت نیز در دسترس است',
-    all:'همه',addCalendar:'افزودن به تقویم',save:'ذخیره',saved:'ذخیره شد',required:'اجباری',noActivities:'فعالیتی پیدا نشد.',activities:'فعالیت‌ها',ongoing:'همیشگی',moreInfo:'اطلاعات بیشتر',
+    all:'همه',addCalendar:'افزودن به تقویم',save:'ذخیره',saved:'ذخیره شد',required:'اجباری',noActivities:'فعالیتی پیدا نشد.',activities:'فعالیت‌ها',ongoing:'همیشگی',moreInfo:'اطلاعات بیشتر',readMore:'بیشتر بخوانید',readLess:'کمتر',
     nav:{today:'امروز',week:'هفته',month:'ماه',saved:'تقویم من',info:'اطلاعات'},
     categories:{language:'زبان',sport:'ورزش',meet:'دیدار',practical:'کارهای عملی',required:'اجباری',children:'کودکان',creative:'خلاقیت',health:'سلامت',learning:'یادگیری'}
   }
@@ -332,14 +335,22 @@ function eventCard(ev){
   const timeMain=ev.start;
   const timeSmall=ev.timeLabel?'':`<small>${ev.end}</small>`;
   const metaTime=ev.timeLabel||`${ev.start}–${ev.end}`;
-  const calButton=ev.calendar===false?'':`<button class="btn" data-ics="${eventKey(ev)}">＋ ${t().addCalendar}</button>`;
+  const calButton=ev.calendar===false?'':`<button class="text-link" data-ics="${eventKey(ev)}">＋ ${t().addCalendar}</button>`;
   const status=ev.status?`<div class="status-note">${ev.status[state.lang]||ev.status.nl}</div>`:'';
   const thumbSrc=thumbFor(ev);
   const thumb=thumbSrc?`<div class="thumb"><img src="${thumbSrc}" alt="${ev.title[state.lang]||ev.title.nl}"></div>`:`<div class="thumb" aria-hidden="true"></div>`;
   const side=`<div class="event-side"><div class="time-badge">${timeMain}${timeSmall}</div>${thumb}</div>`;
-  return `<article class="event" data-cat="${ev.cat}">${side}<div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span><span>🕒 ${metaTime}</span></div></div><button class="star ${saved?'saved':''}" data-save="${eventKey(ev)}" aria-label="${saved?t().saved:t().save}">${saved?'★':'☆'}</button></div><div class="badge ${isReq?'required':''}">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}${isReq?' · '+t().required:''}</div><div class="meta" style="margin-top:10px">${ev.desc[state.lang]||ev.desc.nl}</div>${status}<div class="event-actions">${calButton}</div></div></article>`
+  const desc=`<div class="desc-wrap"><div class="desc-text">${ev.desc[state.lang]||ev.desc.nl}</div><button class="text-link read-more" data-readmore data-more="${t().readMore}" data-less="${t().readLess}">${t().readMore}</button></div>`;
+  return `<article class="event" data-cat="${ev.cat}">${side}<div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span><span>🕒 ${metaTime}</span></div></div><button class="star ${saved?'saved':''}" data-save="${eventKey(ev)}" aria-label="${saved?t().saved:t().save}">${saved?'★':'☆'}</button></div><div class="badge ${isReq?'required':''}">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}${isReq?' · '+t().required:''}</div>${desc}${status}<div class="event-actions">${calButton}</div></div></article>`
 }
 function ongoingCard(ev){
+  const thumbSrc=thumbFor(ev);
+  const thumb=thumbSrc?`<div class="thumb"><img src="${thumbSrc}" alt="${ev.title[state.lang]||ev.title.nl}"></div>`:`<div class="thumb" aria-hidden="true"></div>`;
+  const side=`<div class="event-side"><div class="time-badge">${t().ongoing}</div>${thumb}</div>`;
+  const desc=`<div class="desc-wrap"><div class="desc-text">${ev.desc[state.lang]||ev.desc.nl}</div><button class="text-link read-more" data-readmore data-more="${t().readMore}" data-less="${t().readLess}">${t().readMore}</button></div>`;
+  return `<article class="event ongoing-card" data-cat="${ev.cat}">${side}<div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span></div></div></div><div class="badge">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}</div>${desc}</div></article>`
+}
+function categoriesHtml(ev){
   const thumbSrc=thumbFor(ev);
   const thumb=thumbSrc?`<div class="thumb"><img src="${thumbSrc}" alt="${ev.title[state.lang]||ev.title.nl}"></div>`:`<div class="thumb" aria-hidden="true"></div>`;
   const side=`<div class="event-side"><div class="time-badge">${t().ongoing}</div>${thumb}</div>`;
@@ -350,6 +361,7 @@ function filteredAnytime(){return state.filter==='all'?anytime:anytime.filter(e=
 function bindCards(events){
   document.querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>{const k=b.dataset.save;state.saved=state.saved.includes(k)?state.saved.filter(x=>x!==k):[...state.saved,k];localStorage.setItem('azc-saved',JSON.stringify(state.saved));render()});
   document.querySelectorAll('[data-ics]').forEach(b=>b.onclick=()=>{const ev=events.find(x=>eventKey(x)===b.dataset.ics) || allVisibleOccurrences().find(x=>eventKey(x)===b.dataset.ics);if(ev)downloadICS(ev)});
+  document.querySelectorAll('[data-readmore]').forEach(b=>b.onclick=()=>{const wrap=b.closest('.desc-wrap');const expanded=wrap.classList.toggle('expanded');b.textContent=expanded?b.dataset.less:b.dataset.more});
 }
 function allVisibleOccurrences(){const y=state.month.getFullYear(),m=state.month.getMonth();return occurrences(new Date(y,m-1,1),new Date(y,m+2,0))}
 function downloadICS(ev){
