@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>AZC Vandaag</title>
+  <style>
+    :root{
+      --bg:#f6f7f5;--card:#fff;--text:#17211f;--muted:#6b7471;--line:#e3e7e4;
+      --brand:#0f766e;--brand-soft:#e6f4f1;--accent:#f2b84b;--danger:#b94a48;
+      --shadow:0 8px 28px rgba(24,38,34,.08);--radius:20px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    button,select{font:inherit}
+    button{cursor:pointer}
+    .app{max-width:760px;margin:0 auto;min-height:100dvh;padding-bottom:94px}
+    header{position:sticky;top:0;z-index:20;background:rgba(246,247,245,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(227,231,228,.8)}
+    .header-inner{padding:16px 18px 12px}
+    .brand-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:42px;height:42px;border-radius:14px;background:var(--brand);display:grid;place-items:center;color:white;font-size:21px;box-shadow:var(--shadow)}
+    h1{font-size:22px;margin:0;line-height:1.1}
+    .tagline{color:var(--muted);font-size:13px;margin-top:3px}
+    .lang{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 10px;color:var(--text);max-width:125px}
+    .notice{margin:14px 18px 0;padding:13px 14px;background:#fff7e6;border:1px solid #f2d59d;border-radius:16px;font-size:14px;display:flex;gap:10px;align-items:flex-start}
+    .notice.hidden{display:none}
+    main{padding:18px}
+    .screen{display:none}.screen.active{display:block}
+    .hero{background:linear-gradient(135deg,#0f766e,#155e75);color:white;border-radius:26px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+    .hero .eyebrow{font-size:13px;opacity:.8;margin-bottom:8px}.hero h2{font-size:30px;margin:0 0 6px}.hero p{margin:0;opacity:.9}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:22px 2px 10px}
+    .section-head h2,.section-head h3{margin:0}.section-head h2{font-size:23px}.section-head h3{font-size:17px}.section-head span{color:var(--muted);font-size:13px}
+    .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+    .chip{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:9px 13px;color:var(--text)}
+    .chip.active{background:var(--brand);border-color:var(--brand);color:white}
+    .list{display:grid;gap:11px}
+    .event{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:52px 1fr;gap:13px;box-shadow:0 3px 16px rgba(24,38,34,.035)}
+    .time{font-weight:800;color:var(--brand);font-size:14px;padding-top:3px;text-align:center}.time small{display:block;color:var(--muted);font-weight:600;font-size:11px;margin-top:3px}
+    .event-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .event h3{font-size:17px;margin:0 0 5px}.meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:7px 11px}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:800;margin-top:9px}
+    .badge.required{background:#fff0ef;color:var(--danger)}
+    .event-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+    .btn{border:0;border-radius:11px;padding:9px 11px;font-weight:750;background:var(--brand);color:white}.btn.secondary{background:#eef1ef;color:var(--text)}
+    .star{border:0;background:transparent;font-size:22px;line-height:1;padding:2px;color:#aeb5b2}.star.saved{color:var(--accent)}
+    .day-block{margin-bottom:21px}.day-label{font-size:14px;font-weight:850;margin:0 0 9px;color:#43504c;text-transform:capitalize}
+    .empty{padding:28px 18px;background:white;border:1px dashed #cdd5d1;border-radius:18px;text-align:center;color:var(--muted)}
+    .categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .category-card{border:1px solid var(--line);background:white;border-radius:18px;padding:16px;text-align:left}.category-card strong{display:block;font-size:16px;margin:7px 0 4px}.category-card span{color:var(--muted);font-size:13px}
+    .category-card.active{outline:2px solid var(--brand);background:var(--brand-soft)}
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.calendar-head h2{margin:0;font-size:22px}.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:white}
+    .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dow{text-align:center;color:var(--muted);font-size:11px;font-weight:800;padding:5px 0}.day{min-height:65px;border:1px solid var(--line);border-radius:13px;background:white;padding:7px 5px;position:relative}.day.muted{opacity:.35}.day.today{outline:2px solid var(--brand)}.day.selected{background:var(--brand-soft)}.day-num{font-size:12px;font-weight:800}.dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:7px}.dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+    .info-card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:11px}.info-card h3{margin:0 0 7px}.info-card p{color:var(--muted);margin:0;line-height:1.55;font-size:14px}
+    .demo-note{background:#edf2ff;border-color:#cad6fa}.demo-note p{color:#48506a}
+    nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left))}
+    .nav-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+    .nav-btn{border:0;background:transparent;color:#707a76;border-radius:12px;padding:6px 2px;font-size:10px;font-weight:750}.nav-btn .ico{display:block;font-size:20px;margin-bottom:2px}.nav-btn.active{color:var(--brand);background:var(--brand-soft)}
+    .rtl{direction:rtl}.rtl .event{grid-template-columns:1fr 52px}.rtl .time{grid-column:2}.rtl .event-body{grid-column:1;grid-row:1}.rtl .event-top,.rtl .section-head,.rtl .brand-row,.rtl .calendar-head{direction:rtl}
+    @media(min-width:640px){main{padding:24px}.header-inner{padding:18px 24px 14px}.notice{margin-left:24px;margin-right:24px}.hero{padding:28px}.categories{grid-template-columns:repeat(3,minmax(0,1fr))}.event{padding:16px}}
+  </style>
+</head>
+<body>
+<div class="app" id="app">
+  <header>
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="logo">◎</div>
+          <div><h1 id="appName">AZC Vandaag</h1><div class="tagline" id="tagline">Alles wat er te doen is, op één plek</div></div>
+        </div>
+        <select class="lang" id="language" aria-label="Taal kiezen">
+          <option value="nl">Nederlands</option>
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="fa">فارسی</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="notice" id="importantNotice"><span>🔔</span><div><strong id="importantTitle">Belangrijk vandaag</strong><div id="importantText">Controleer bij de infobalie of er wijzigingen zijn in afspraken of openingstijden.</div></div></div>
+
+  <main>
+    <section class="screen active" data-screen="today">
+      <div class="hero"><div class="eyebrow" id="todayEyebrow">Vandaag op de locatie</div><h2 id="todayTitle">Wat ga jij doen?</h2><p id="todaySub">Bekijk activiteiten, lessen en belangrijke momenten.</p></div>
+      <div class="section-head"><h2 id="todayHeading">Vandaag</h2><span id="todayDate"></span></div>
+      <div class="chips" id="todayFilters"></div>
+      <div class="list" id="todayList"></div>
+    </section>
+
+    <section class="screen" data-screen="week">
+      <div class="section-head"><div><h2 id="weekHeading">Deze week</h2><span id="weekRange"></span></div></div>
+      <div class="chips" id="weekFilters"></div>
+      <div id="weekList"></div>
+    </section>
+
+    <section class="screen" data-screen="month">
+      <div class="calendar-head"><button class="icon-btn" id="prevMonth" aria-label="Vorige maand">‹</button><h2 id="monthHeading"></h2><button class="icon-btn" id="nextMonth" aria-label="Volgende maand">›</button></div>
+      <div class="chips" id="monthFilters"></div>
+      <div class="month-grid" id="monthGrid"></div>
+      <div class="section-head"><h3 id="selectedDayHeading">Activiteiten</h3></div>
+      <div class="list" id="monthDayList"></div>
+    </section>
+
+    <section class="screen" data-screen="saved">
+      <div class="section-head"><div><h2 id="savedHeading">Mijn activiteiten</h2><span id="savedSub">Bewaard op deze telefoon</span></div></div>
+      <div class="list" id="savedList"></div>
+    </section>
+
+    <section class="screen" data-screen="info">
+      <div class="section-head"><h2 id="infoHeading">Informatie</h2></div>
+      <div class="info-card demo-note"><h3 id="demoTitle">Demo voor pilot</h3><p id="demoText">De activiteiten en tijden in deze versie zijn voorbeelddata. Vervang ze voor gebruik op locatie door het echte programma.</p></div>
+      <div class="info-card"><h3 id="infoDeskTitle">ℹ️ Infobalie</h3><p id="infoDeskText">Voor vragen over verblijf, afspraken en praktische zaken. Kijk in de agenda voor de actuele openingstijden.</p></div>
+      <div class="info-card"><h3 id="participationTitle">🤝 Meedoenbalie</h3><p id="participationText">Voor vragen over activiteiten, vrijwilligerswerk, leren, werk en meedoen buiten de locatie.</p></div>
+      <div class="info-card"><h3 id="calendarTitle">📅 Toevoegen aan agenda</h3><p id="calendarText">Bij iedere activiteit kun je een kalenderbestand openen. Hiervoor heb je geen account in deze app nodig.</p></div>
+      <div class="info-card"><h3 id="privacyTitle">🔒 Privacy</h3><p id="privacyText">Deze demo vraagt geen naam, e-mailadres, V-nummer of andere persoonsgegevens. Favorieten en taalkeuze blijven alleen op deze telefoon staan.</p></div>
+    </section>
+  </main>
+
+  <nav>
+    <div class="nav-inner">
+      <button class="nav-btn active" data-target="today"><span class="ico">☀️</span><span data-nav="today">Vandaag</span></button>
+      <button class="nav-btn" data-target="week"><span class="ico">▦</span><span data-nav="week">Week</span></button>
+      <button class="nav-btn" data-target="month"><span class="ico">📅</span><span data-nav="month">Maand</span></button>
+      <button class="nav-btn" data-target="saved"><span class="ico">★</span><span data-nav="saved">Mijn agenda</span></button>
+      <button class="nav-btn" data-target="info"><span class="ico">ⓘ</span><span data-nav="info">Info</span></button>
+    </div>
+  </nav>
+</div>
+
+<script>
+const translations = {
+  nl:{tagline:'Alles wat er te doen is, op één plek',importantTitle:'Belangrijk vandaag',importantText:'Controleer bij de infobalie of er wijzigingen zijn in afspraken of openingstijden.',todayEyebrow:'Vandaag op de locatie',todayTitle:'Wat ga jij doen?',todaySub:'Bekijk activiteiten, lessen en belangrijke momenten.',todayHeading:'Vandaag',weekHeading:'Deze week',savedHeading:'Mijn activiteiten',savedSub:'Bewaard op deze telefoon',infoHeading:'Informatie',demoTitle:'Demo voor pilot',demoText:'De activiteiten en tijden in deze versie zijn voorbeelddata. Vervang ze voor gebruik op locatie door het echte programma.',infoDeskTitle:'ℹ️ Infobalie',infoDeskText:'Voor vragen over verblijf, afspraken en praktische zaken. Kijk in de agenda voor de actuele openingstijden.',participationTitle:'🤝 Meedoenbalie',participationText:'Voor vragen over activiteiten, vrijwilligerswerk, leren, werk en meedoen buiten de locatie.',calendarTitle:'📅 Toevoegen aan agenda',calendarText:'Bij iedere activiteit kun je een kalenderbestand openen. Hiervoor heb je geen account in deze app nodig.',privacyTitle:'🔒 Privacy',privacyText:'Deze demo vraagt geen naam, e-mailadres, V-nummer of andere persoonsgegevens. Favorieten en taalkeuze blijven alleen op deze telefoon staan.',all:'Alles',addCalendar:'In agenda',save:'Bewaren',saved:'Bewaard',required:'Belangrijk',free:'Vrije inloop',noActivities:'Geen activiteiten gevonden.',activities:'Activiteiten',nav:{today:'Vandaag',week:'Week',month:'Maand',saved:'Mijn agenda',info:'Info'},categories:{language:'Taal',sport:'Sport',meet:'Ontmoeten',practical:'Praktisch',required:'Belangrijk',children:'Kinderen',creative:'Creatief'}},
+  en:{tagline:'Everything happening, in one place',importantTitle:'Important today',importantText:'Check the information desk for changes to appointments or opening hours.',todayEyebrow:'Today at the location',todayTitle:'What will you do?',todaySub:'See activities, lessons and important moments.',todayHeading:'Today',weekHeading:'This week',savedHeading:'My activities',savedSub:'Saved on this phone',infoHeading:'Information',demoTitle:'Pilot demo',demoText:'The activities and times in this version are sample data. Replace them with the real local programme before use.',infoDeskTitle:'ℹ️ Information desk',infoDeskText:'For questions about your stay, appointments and practical matters. Check the calendar for current opening hours.',participationTitle:'🤝 Participation desk',participationText:'For questions about activities, volunteering, learning, work and taking part outside the centre.',calendarTitle:'📅 Add to calendar',calendarText:'Every activity can be opened as a calendar item. You do not need an account in this app.',privacyTitle:'🔒 Privacy',privacyText:'This demo does not ask for your name, email address, V-number or other personal details. Favourites and language choice stay on this phone.',all:'All',addCalendar:'Add to calendar',save:'Save',saved:'Saved',required:'Important',free:'Drop-in',noActivities:'No activities found.',activities:'Activities',nav:{today:'Today',week:'Week',month:'Month',saved:'My calendar',info:'Info'},categories:{language:'Language',sport:'Sport',meet:'Meet',practical:'Practical',required:'Important',children:'Children',creative:'Creative'}},
+  ar:{tagline:'كل ما يحدث في مكان واحد',importantTitle:'مهم اليوم',importantText:'تحقق من مكتب المعلومات لمعرفة أي تغييرات في المواعيد أو أوقات العمل.',todayEyebrow:'اليوم في الموقع',todayTitle:'ماذا ستفعل اليوم؟',todaySub:'شاهد الأنشطة والدروس والمواعيد المهمة.',todayHeading:'اليوم',weekHeading:'هذا الأسبوع',savedHeading:'أنشطتي',savedSub:'محفوظة على هذا الهاتف',infoHeading:'معلومات',demoTitle:'نسخة تجريبية',demoText:'الأنشطة والأوقات في هذه النسخة أمثلة. يجب استبدالها بالبرنامج الحقيقي للموقع قبل الاستخدام.',infoDeskTitle:'ℹ️ مكتب المعلومات',infoDeskText:'للأسئلة حول الإقامة والمواعيد والأمور العملية. راجع الجدول لأوقات العمل الحالية.',participationTitle:'🤝 مكتب المشاركة',participationText:'للأسئلة حول الأنشطة والتطوع والتعلم والعمل والمشاركة خارج المركز.',calendarTitle:'📅 أضف إلى التقويم',calendarText:'يمكن فتح كل نشاط في تقويم هاتفك. لا تحتاج إلى حساب في هذا التطبيق.',privacyTitle:'🔒 الخصوصية',privacyText:'لا تطلب هذه النسخة اسمك أو بريدك الإلكتروني أو رقم V أو بيانات شخصية أخرى. تبقى المفضلة واللغة على هذا الهاتف.',all:'الكل',addCalendar:'أضف للتقويم',save:'حفظ',saved:'محفوظ',required:'مهم',free:'بدون تسجيل',noActivities:'لا توجد أنشطة.',activities:'الأنشطة',nav:{today:'اليوم',week:'الأسبوع',month:'الشهر',saved:'تقويمي',info:'معلومات'},categories:{language:'اللغة',sport:'الرياضة',meet:'لقاء',practical:'عملي',required:'مهم',children:'الأطفال',creative:'إبداعي'}},
+  fa:{tagline:'همه برنامه‌ها در یک جا',importantTitle:'مهم امروز',importantText:'برای تغییرات احتمالی در قرارها یا ساعات کار به میز اطلاعات مراجعه کنید.',todayEyebrow:'امروز در مرکز',todayTitle:'امروز چه کار می‌کنید؟',todaySub:'فعالیت‌ها، کلاس‌ها و زمان‌های مهم را ببینید.',todayHeading:'امروز',weekHeading:'این هفته',savedHeading:'فعالیت‌های من',savedSub:'ذخیره‌شده روی این تلفن',infoHeading:'اطلاعات',demoTitle:'نسخه آزمایشی',demoText:'فعالیت‌ها و زمان‌های این نسخه نمونه هستند. پیش از استفاده باید با برنامه واقعی مرکز جایگزین شوند.',infoDeskTitle:'ℹ️ میز اطلاعات',infoDeskText:'برای پرسش درباره اقامت، قرارها و امور عملی. ساعات فعلی را در تقویم ببینید.',participationTitle:'🤝 میز مشارکت',participationText:'برای پرسش درباره فعالیت‌ها، داوطلبی، آموزش، کار و مشارکت خارج از مرکز.',calendarTitle:'📅 افزودن به تقویم',calendarText:'هر فعالیت را می‌توانید در تقویم تلفن باز کنید. نیازی به حساب کاربری در این برنامه نیست.',privacyTitle:'🔒 حریم خصوصی',privacyText:'این نسخه نام، ایمیل، شماره V یا اطلاعات شخصی دیگری نمی‌خواهد. علاقه‌مندی‌ها و زبان فقط روی همین تلفن می‌ماند.',all:'همه',addCalendar:'افزودن به تقویم',save:'ذخیره',saved:'ذخیره شد',required:'مهم',free:'بدون ثبت‌نام',noActivities:'فعالیتی پیدا نشد.',activities:'فعالیت‌ها',nav:{today:'امروز',week:'هفته',month:'ماه',saved:'تقویم من',info:'اطلاعات'},categories:{language:'زبان',sport:'ورزش',meet:'دیدار',practical:'کارهای عملی',required:'مهم',children:'کودکان',creative:'خلاقیت'}}
+};
+
+const weekly = [
+  {id:'info-mon',days:[1,2,3,4,5],start:'09:00',end:'11:30',cat:'practical',location:'Infobalie',required:false,title:{nl:'Infobalie open',en:'Information desk open',ar:'مكتب المعلومات مفتوح',fa:'میز اطلاعات باز است'},desc:{nl:'Vragen over afspraken en praktische zaken.',en:'Questions about appointments and practical matters.',ar:'للأسئلة حول المواعيد والأمور العملية.',fa:'برای پرسش درباره قرارها و امور عملی.'}},
+  {id:'dutch-a1',days:[1,3],start:'10:00',end:'11:30',cat:'language',location:'Lesruimte 1',title:{nl:'Nederlandse les A1',en:'Dutch class A1',ar:'درس اللغة الهولندية A1',fa:'کلاس زبان هلندی A1'},desc:{nl:'Basis Nederlands spreken en oefenen.',en:'Practise basic spoken Dutch.',ar:'تعلّم وممارسة الهولندية الأساسية.',fa:'تمرین زبان هلندی پایه.'}},
+  {id:'participation',days:[1,4],start:'13:00',end:'15:00',cat:'practical',location:'Meedoenbalie',required:true,title:{nl:'Meedoenbalie',en:'Participation desk',ar:'مكتب المشاركة',fa:'میز مشارکت'},desc:{nl:'Activiteiten, vrijwilligerswerk, leren en werk.',en:'Activities, volunteering, learning and work.',ar:'الأنشطة والتطوع والتعلم والعمل.',fa:'فعالیت، داوطلبی، آموزش و کار.'}},
+  {id:'football',days:[1,5],start:'19:00',end:'20:30',cat:'sport',location:'Sportveld',title:{nl:'Voetbal',en:'Football',ar:'كرة القدم',fa:'فوتبال'},desc:{nl:'Vrije inloop. Teams worden ter plekke gemaakt.',en:'Drop-in. Teams are made on the spot.',ar:'بدون تسجيل. يتم تشكيل الفرق في المكان.',fa:'بدون ثبت‌نام. تیم‌ها همان‌جا تشکیل می‌شوند.'}},
+  {id:'women-fitness',days:[2],start:'10:30',end:'11:30',cat:'sport',location:'Recreatieruimte',title:{nl:'Bewegen voor vrouwen',en:'Women’s exercise',ar:'رياضة للنساء',fa:'ورزش برای زنان'},desc:{nl:'Rustige beweegles voor vrouwen.',en:'Low-threshold exercise session for women.',ar:'جلسة رياضية بسيطة للنساء.',fa:'جلسه ورزشی سبک برای زنان.'}},
+  {id:'kids-creative',days:[2],start:'15:30',end:'17:00',cat:'children',location:'Activiteitenruimte',title:{nl:'Creatief voor kinderen',en:'Creative activities for children',ar:'نشاط إبداعي للأطفال',fa:'فعالیت خلاقانه برای کودکان'},desc:{nl:'Tekenen, knutselen en samen spelen.',en:'Drawing, crafts and playing together.',ar:'رسم وأشغال يدوية ولعب جماعي.',fa:'نقاشی، کاردستی و بازی گروهی.'}},
+  {id:'language-cafe',days:[3],start:'14:00',end:'15:30',cat:'meet',location:'Recreatieruimte',title:{nl:'Taalcafé',en:'Language café',ar:'مقهى اللغة',fa:'کافه زبان'},desc:{nl:'Oefen Nederlands in een ontspannen sfeer.',en:'Practise Dutch in a relaxed setting.',ar:'تدرّب على الهولندية في أجواء مريحة.',fa:'هلندی را در فضایی دوستانه تمرین کنید.'}},
+  {id:'information-session',days:[3],start:'16:00',end:'17:00',cat:'required',location:'Grote zaal',required:true,title:{nl:'Informatiebijeenkomst wonen & leven',en:'Living at the centre information session',ar:'جلسة معلومات عن السكن والحياة',fa:'جلسه اطلاعات زندگی در مرکز'},desc:{nl:'Praktische informatie over wonen en leven op de locatie.',en:'Practical information about living at the centre.',ar:'معلومات عملية عن السكن والحياة في المركز.',fa:'اطلاعات عملی درباره زندگی در مرکز.'}},
+  {id:'cycling',days:[4],start:'10:00',end:'11:30',cat:'sport',location:'Verzamelpunt hoofdingang',title:{nl:'Fietsles',en:'Cycling lesson',ar:'درس ركوب الدراجة',fa:'آموزش دوچرخه‌سواری'},desc:{nl:'Fietsen oefenen en verkeersregels leren.',en:'Practise cycling and learn traffic rules.',ar:'تعلّم ركوب الدراجة وقواعد المرور.',fa:'تمرین دوچرخه‌سواری و قوانین راهنمایی.'}},
+  {id:'job-help',days:[4],start:'14:00',end:'15:30',cat:'practical',location:'Lesruimte 2',title:{nl:'Hulp bij werk en cv',en:'Work and CV help',ar:'مساعدة في العمل والسيرة الذاتية',fa:'کمک برای کار و رزومه'},desc:{nl:'Vragen over werk, cv en solliciteren.',en:'Questions about jobs, CVs and applications.',ar:'أسئلة عن العمل والسيرة الذاتية والتقديم.',fa:'پرسش درباره کار، رزومه و درخواست شغل.'}},
+  {id:'tabletennis',days:[5],start:'15:00',end:'17:00',cat:'meet',location:'Recreatieruimte',title:{nl:'Tafeltennis & spel',en:'Table tennis & games',ar:'تنس الطاولة والألعاب',fa:'تنیس روی میز و بازی'},desc:{nl:'Loop binnen voor tafeltennis, kaarten of een spel.',en:'Drop in for table tennis, cards or games.',ar:'تعال لتنس الطاولة أو الورق أو الألعاب.',fa:'برای تنیس روی میز، کارت یا بازی بیایید.'}},
+  {id:'family-sport',days:[6],start:'14:00',end:'16:00',cat:'children',location:'Sportveld',title:{nl:'Sport & spel voor gezinnen',en:'Family sports & games',ar:'رياضة وألعاب للعائلات',fa:'ورزش و بازی خانوادگی'},desc:{nl:'Samen bewegen en spelen voor kinderen en ouders.',en:'Sports and games for children and parents.',ar:'رياضة وألعاب للأطفال والوالدين.',fa:'ورزش و بازی برای کودکان و والدین.'}},
+  {id:'rec-room',days:[0],start:'14:00',end:'17:00',cat:'meet',location:'Recreatieruimte',title:{nl:'Recreatieruimte open',en:'Recreation room open',ar:'قاعة الترفيه مفتوحة',fa:'سالن تفریح باز است'},desc:{nl:'Koffie, spelletjes en ontmoeting.',en:'Coffee, games and meeting others.',ar:'قهوة وألعاب ولقاء الآخرين.',fa:'قهوه، بازی و دیدار با دیگران.'}}
+];
+
+const catIcons={all:'●',language:'💬',sport:'⚽',meet:'☕',practical:'🧭',required:'📌',children:'🧒',creative:'🎨'};
+let state={lang:localStorage.getItem('azc-lang')||'nl',filter:'all',screen:'today',saved:JSON.parse(localStorage.getItem('azc-saved')||'[]'),month:new Date(new Date().getFullYear(),new Date().getMonth(),1),selectedDate:new Date()};
+
+function t(){return translations[state.lang]||translations.nl}
+function localLocale(){return ({nl:'nl-NL',en:'en-GB',ar:'ar',fa:'fa-IR'})[state.lang]||'nl-NL'}
+function isoDate(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function atTime(date,time){const [h,m]=time.split(':').map(Number);return new Date(date.getFullYear(),date.getMonth(),date.getDate(),h,m,0)}
+function escapeICS(s=''){return s.replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n')}
+function occurrences(start,end){
+  const out=[];let d=new Date(start.getFullYear(),start.getMonth(),start.getDate());
+  const last=new Date(end.getFullYear(),end.getMonth(),end.getDate());
+  while(d<=last){for(const a of weekly){if(a.days.includes(d.getDay()))out.push({...a,date:new Date(d)})}d.setDate(d.getDate()+1)}
+  return out.sort((a,b)=>atTime(a.date,a.start)-atTime(b.date,b.start));
+}
+function eventKey(ev){return ev.id+'@'+isoDate(ev.date)}
+function categoryName(cat){return t().categories[cat]||cat}
+function formatDay(d,withYear=false){return new Intl.DateTimeFormat(localLocale(),{weekday:'long',day:'numeric',month:'long',year:withYear?'numeric':undefined}).format(d)}
+function filterEvents(events){return state.filter==='all'?events:events.filter(e=>e.cat===state.filter)}
+
+function eventCard(ev){
+  const saved=state.saved.includes(eventKey(ev)); const isReq=ev.required||ev.cat==='required';
+  return `<article class="event"><div class="time">${ev.start}<small>${ev.end}</small></div><div class="event-body"><div class="event-top"><div><h3>${ev.title[state.lang]||ev.title.nl}</h3><div class="meta"><span>📍 ${ev.location}</span><span>🕒 ${ev.start}–${ev.end}</span></div></div><button class="star ${saved?'saved':''}" data-save="${eventKey(ev)}" aria-label="${saved?t().saved:t().save}">${saved?'★':'☆'}</button></div><div class="badge ${isReq?'required':''}">${catIcons[ev.cat]||'●'} ${categoryName(ev.cat)}${isReq?' · '+t().required:''}</div><div class="meta" style="margin-top:9px">${ev.desc[state.lang]||ev.desc.nl}</div><div class="event-actions"><button class="btn" data-ics="${eventKey(ev)}">＋ ${t().addCalendar}</button></div></div></article>`
+}
+function categoriesHtml(){const cats=['all','language','sport','meet','practical','required','children'];return cats.map(c=>`<button class="chip ${state.filter===c?'active':''}" data-filter="${c}">${catIcons[c]} ${c==='all'?t().all:categoryName(c)}</button>`).join('')}
+function bindCards(events){
+  document.querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>{const k=b.dataset.save;state.saved=state.saved.includes(k)?state.saved.filter(x=>x!==k):[...state.saved,k];localStorage.setItem('azc-saved',JSON.stringify(state.saved));render()});
+  document.querySelectorAll('[data-ics]').forEach(b=>b.onclick=()=>{const ev=events.find(x=>eventKey(x)===b.dataset.ics) || allVisibleOccurrences().find(x=>eventKey(x)===b.dataset.ics);if(ev)downloadICS(ev)});
+}
+function allVisibleOccurrences(){const y=state.month.getFullYear(),m=state.month.getMonth();return occurrences(new Date(y,m-1,1),new Date(y,m+2,0))}
+function downloadICS(ev){
+  const start=atTime(ev.date,ev.start),end=atTime(ev.date,ev.end);const stamp=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const title=ev.title[state.lang]||ev.title.nl,desc=ev.desc[state.lang]||ev.desc.nl;
+  const ics=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//AZC Vandaag//NL\r\nBEGIN:VEVENT\r\nUID:${eventKey(ev)}@azcvandaag\r\nDTSTAMP:${stamp(new Date())}\r\nDTSTART:${stamp(start)}\r\nDTEND:${stamp(end)}\r\nSUMMARY:${escapeICS(title)}\r\nLOCATION:${escapeICS(ev.location)}\r\nDESCRIPTION:${escapeICS(desc)}\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${isoDate(ev.date)}-${ev.id}.ics`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
+}
+function renderText(){
+  const q=t();document.documentElement.lang=state.lang;document.getElementById('app').classList.toggle('rtl',['ar','fa'].includes(state.lang));
+  const ids=['tagline','importantTitle','importantText','todayEyebrow','todayTitle','todaySub','todayHeading','weekHeading','savedHeading','savedSub','infoHeading','demoTitle','demoText','infoDeskTitle','infoDeskText','participationTitle','participationText','calendarTitle','calendarText','privacyTitle','privacyText'];ids.forEach(id=>{if(q[id])document.getElementById(id).textContent=q[id]});
+  document.querySelectorAll('[data-nav]').forEach(el=>el.textContent=q.nav[el.dataset.nav]);
+}
+function renderToday(){const now=new Date();document.getElementById('todayDate').textContent=formatDay(now);document.getElementById('todayFilters').innerHTML=categoriesHtml();const evs=filterEvents(occurrences(now,now));document.getElementById('todayList').innerHTML=evs.length?evs.map(eventCard).join(''):`<div class="empty">${t().noActivities}</div>`;bindCards(evs)}
+function startOfWeek(d){const x=new Date(d);const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);x.setHours(0,0,0,0);return x}
+function renderWeek(){const start=startOfWeek(new Date()),end=new Date(start);end.setDate(start.getDate()+6);document.getElementById('weekRange').textContent=`${new Intl.DateTimeFormat(localLocale(),{day:'numeric',month:'short'}).format(start)} – ${new Intl.DateTimeFormat(localLocale(),{day:'numeric',month:'short'}).format(end)}`;document.getElementById('weekFilters').innerHTML=categoriesHtml();const evs=filterEvents(occurrences(start,end));let html='';for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);const dayEvs=evs.filter(e=>isoDate(e.date)===isoDate(d));if(dayEvs.length)html+=`<div class="day-block"><div class="day-label">${formatDay(d)}</div><div class="list">${dayEvs.map(eventCard).join('')}</div></div>`}document.getElementById('weekList').innerHTML=html||`<div class="empty">${t().noActivities}</div>`;bindCards(evs)}
+function renderMonth(){
+  document.getElementById('monthHeading').textContent=new Intl.DateTimeFormat(localLocale(),{month:'long',year:'numeric'}).format(state.month);document.getElementById('monthFilters').innerHTML=categoriesHtml();
+  const y=state.month.getFullYear(),m=state.month.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0);const gridStart=startOfWeek(first),gridEnd=new Date(gridStart);gridEnd.setDate(gridStart.getDate()+41);const evs=filterEvents(occurrences(gridStart,gridEnd));
+  const dows=[];for(let i=0;i<7;i++){const d=new Date(2026,8,28+i);dows.push(`<div class="dow">${new Intl.DateTimeFormat(localLocale(),{weekday:'short'}).format(d)}</div>`)}let html=dows.join('');
+  for(let i=0;i<42;i++){const d=new Date(gridStart);d.setDate(gridStart.getDate()+i);const count=evs.filter(e=>isoDate(e.date)===isoDate(d)).length;const cls=[d.getMonth()!==m?'muted':'',isoDate(d)===isoDate(new Date())?'today':'',isoDate(d)===isoDate(state.selectedDate)?'selected':''].join(' ');html+=`<button class="day ${cls}" data-date="${isoDate(d)}"><span class="day-num">${d.getDate()}</span><span class="dots">${Array.from({length:Math.min(count,4)},()=>'<i class="dot"></i>').join('')}</span></button>`}
+  document.getElementById('monthGrid').innerHTML=html;document.querySelectorAll('[data-date]').forEach(b=>b.onclick=()=>{const [yy,mm,dd]=b.dataset.date.split('-').map(Number);state.selectedDate=new Date(yy,mm-1,dd);renderMonth()});
+  document.getElementById('selectedDayHeading').textContent=`${t().activities} · ${formatDay(state.selectedDate)}`;const dayEvs=evs.filter(e=>isoDate(e.date)===isoDate(state.selectedDate));document.getElementById('monthDayList').innerHTML=dayEvs.length?dayEvs.map(eventCard).join(''):`<div class="empty">${t().noActivities}</div>`;bindCards(dayEvs)
+}
+function renderSaved(){const now=new Date(),end=new Date(now);end.setDate(now.getDate()+90);const evs=occurrences(now,end).filter(e=>state.saved.includes(eventKey(e)));document.getElementById('savedList').innerHTML=evs.length?evs.map(eventCard).join(''):`<div class="empty">${t().noActivities}</div>`;bindCards(evs)}
+function bindFilters(){document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{state.filter=b.dataset.filter;render()})}
+function render(){renderText();document.getElementById('language').value=state.lang;renderToday();renderWeek();renderMonth();renderSaved();bindFilters();document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.dataset.screen===state.screen));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.target===state.screen))}
+
+document.getElementById('language').onchange=e=>{state.lang=e.target.value;localStorage.setItem('azc-lang',state.lang);render()};
+document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{state.screen=b.dataset.target;window.scrollTo({top:0,behavior:'smooth'});render()});
+document.getElementById('prevMonth').onclick=()=>{state.month=new Date(state.month.getFullYear(),state.month.getMonth()-1,1);state.selectedDate=new Date(state.month);render()};
+document.getElementById('nextMonth').onclick=()=>{state.month=new Date(state.month.getFullYear(),state.month.getMonth()+1,1);state.selectedDate=new Date(state.month);render()};
+render();
+</script>
+</body>
+</html>
