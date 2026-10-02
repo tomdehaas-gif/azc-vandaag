@@ -113,9 +113,6 @@
       </div>
     </div>
   </header>
-
-  <div class="notice" id="importantNotice"><span>🔔</span><div><strong id="importantTitle">Belangrijk vandaag</strong><div id="importantText">Controleer bij de infobalie of er wijzigingen zijn in afspraken of openingstijden.</div></div></div>
-
   <main>
     <section class="screen active" data-screen="today">
       <div class="hero"><div class="eyebrow" id="todayEyebrow">Vandaag op de locatie</div><h2 id="todayTitle">Wat ga jij doen?</h2><p id="todaySub">Bekijk activiteiten, lessen en belangrijke momenten.</p></div>
@@ -225,7 +222,7 @@ function downloadICS(ev){
 }
 function renderText(){
   const q=t();document.documentElement.lang=state.lang;document.getElementById('app').classList.toggle('rtl',['ar','fa'].includes(state.lang));
-  const ids=['tagline','importantTitle','importantText','todayEyebrow','todayTitle','todaySub','todayHeading','weekHeading','savedHeading','savedSub','infoHeading','demoTitle','demoText','infoDeskTitle','infoDeskText','participationTitle','participationText','calendarTitle','calendarText','privacyTitle','privacyText'];ids.forEach(id=>{if(q[id])document.getElementById(id).textContent=q[id]});
+  const ids=['tagline','todayEyebrow','todayTitle','todaySub','todayHeading','weekHeading','savedHeading','savedSub','infoHeading','demoTitle','demoText','infoDeskTitle','infoDeskText','participationTitle','participationText','calendarTitle','calendarText','privacyTitle','privacyText'];ids.forEach(id=>{if(q[id])document.getElementById(id).textContent=q[id]});
   document.querySelectorAll('[data-nav]').forEach(el=>el.textContent=q.nav[el.dataset.nav]);
 }
 function renderToday(){const now=new Date();document.getElementById('todayDate').textContent=formatDay(now);document.getElementById('todayFilters').innerHTML=categoriesHtml();const evs=filterEvents(occurrences(now,now));document.getElementById('todayList').innerHTML=evs.length?evs.map(eventCard).join(''):`<div class="empty">${t().noActivities}</div>`;bindCards(evs)}
